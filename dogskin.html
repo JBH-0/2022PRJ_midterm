@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+        <style>
+            body {
+                font-family: fantasy;
+                background-color: #eeeeee;
+            }
+
+            .normal-div {
+                font-size: x-large;
+                font-weight: lighter;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            
+            .my-div {
+                font-size: xx-large; 
+                font-weight: bolder; 
+                height: 80px; 
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                position: relative;
+            }
+            
+            .container {
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                position: relative;
+                z-index: 1;
+            }
+
+            .container::after { 
+                width: 100%; 
+                height: 100%; 
+                content: ""; 
+                background: url("https://img.freepik.com/free-vector/cute-colorful-kitten-pow-pattern-design_1017-14710.jpg?t=st=1650212620~exp=1650213220~hmac=c7660f1f8706c07afbc6534b9811528533ac0b1a819beb6018228bc541600693&w=740"); 
+                position: absolute; 
+                top: 0; 
+                left: 0; 
+                z-index: -1; 
+                opacity: 0.4; 
+            }
+            
+            .file-upload { 
+                background-image: url("https://img.freepik.com/free-vector/frame-with-dogs-vector-on-white-background_53876-127700.jpg?t=st=1650212620~exp=1650213220~hmac=a5bdf082a6cd41b3a163768f7d685031b2ca23a83445594e4e7e0f2ecad7563c&w=1060");     
+                background-size: cover; 
+                width: 500px; 
+                margin: 0 auto; 
+                padding: 250px;
+            }
+
+            .file-upload-btn {
+                width: 100%;
+                margin: 0;
+                color: #fff;
+                background: #6495ED;
+                border: none;
+                padding: 20px;
+                border-radius: 4px;
+                border-bottom: 4px solid #1E90FF;
+                transition: all 0.2s ease;
+                outline: none;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: x-large;
+            }
+            
+            .file-upload-btn:hover {
+                background: #1E90FF;
+                color: #ffffff;
+                transition: all 0.2s ease;
+                cursor: pointer;
+            }
+
+            .file-upload-btn:active {
+                border: 0;
+                transition: all 0.2s ease;
+            }
+
+            .file-upload-content {
+                display: none;
+                text-align: center;
+            }
+
+            .file-upload-input {
+                position: absolute;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                outline: none;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            .image-upload-wrap {
+                margin-top: 20px;
+                height: 250px;
+                border: 4px dashed #6495ED;
+                position: relative;
+            }
+
+            .image-dropping,
+            .image-upload-wrap:hover {
+                background-color: #87CEFA;
+                border: 4px dashed #ffffff;
+            }
+
+            .image-title-wrap {
+                padding: 0 15px 15px 15px;
+                color: #222;
+            }
+
+            .drag-text {
+                text-align: center;
+            }
+
+            .drag-text h3 {
+                font-weight: 400;
+                text-transform: uppercase;
+                color: #9370DB;
+                padding: 60px 0;
+            }
+
+            .file-upload-image {
+                max-height: 400px;
+                max-width: 400px;
+                margin: auto;
+                padding: 20px;
+            }
+
+            .remove-image {
+                width: 400px;
+                margin: 0;
+                color: #fff;
+                background: #cd4535;
+                border: none;
+                padding: 10px;
+                border-radius: 4px;
+                border-bottom: 4px solid #b02818;
+                transition: all 0.2s ease;
+                outline: none;
+                text-transform: uppercase;
+                font-weight: 700;
+            }
+
+            .remove-image:hover {
+                background: #c13b2a;
+                color: #ffffff;
+                transition: all 0.2s ease;
+                cursor: pointer;
+            }
+
+            .remove-image:active {
+                border: 0;
+                transition: all 0.2s ease;
+            }
+        </style>
+        <script>
+            window.console = window.console || function (t) {};
+        </script>
+
+        <script>
+            if (document.location.search.match(/type=embed/gi)) {
+                window.parent.postMessage('resize', '*');
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container"><h1 class="my-div">강아지 피부 진단하기</h1></div><h2 class="normal-div">정상이면 normal<br>알레르기 피부염이면 allergy<br>세균, 진균성 피부염이면 bacteria<br>기생충 피부염이면 paracite로 결과가 나옵니다.</h2>
+        <button type="button" style="width: 80pt; height: 40pt; font-size: large" onclick="init()">시작하기</button>
+        <button type="button" style="width: 80pt; height: 40pt; font-size: large" onclick="predict()">예측하기</button>
+        <script
+            class="jsbin"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+        ></script>
+        <div class="file-upload">
+            <button
+                class="file-upload-btn"
+                type="button"
+                onclick="$('.file-upload-input').trigger( 'click' )"
+            >
+                이미지 추가하기
+            </button>
+
+            <div class="image-upload-wrap">
+                <input
+                    class="file-upload-input"
+                    type="file"
+                    onchange="readURL(this);"
+                    accept="image/*"
+                />
+                <div class="drag-text">
+                    <h3>강아지 피부를 진단해주는 모델입니다.<br><br>
+                    <font size="+3"><strong>테스트할 사진을 업로드 또는<br>Drag and Drop해주세요!</strong></font></h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" id="imageUpload" src="#" alt="your image" />
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">
+                        Remove <span class="image-title">Uploaded Image</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="webcam-container"></div>
+        <div id="label-container"></div>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.image-upload-wrap').hide();
+
+                        $('.file-upload-image').attr('src', e.target.result);
+                        $('.file-upload-content').show();
+
+                        $('.image-title').html(input.files[0].name);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    removeUpload();
+                }
+            }
+
+            function removeUpload() {
+                $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+                $('.file-upload-content').hide();
+                $('.image-upload-wrap').show();
+            }
+            $('.image-upload-wrap').bind('dragover', function () {
+                $('.image-upload-wrap').addClass('image-dropping');
+            });
+            $('.image-upload-wrap').bind('dragleave', function () {
+                $('.image-upload-wrap').removeClass('image-dropping');
+            });
+        </script>
+
+        <script type="text/javascript">
+            const URL = './my_model/';
+
+            let model, webcam, labelContainer, maxPredictions;
+
+            async function init() {
+                const modelURL = URL + 'model.json';
+                const metadataURL = URL + 'metadata.json';
+
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+
+                labelContainer = document.getElementById('label-container');
+                for (let i = 0; i < maxPredictions; i++) {
+                    // and class labels
+                    labelContainer.appendChild(document.createElement('div'));
+                }
+            
+            }
+
+            async function predict() {
+                var image = document.getElementById('imageUpload');
+                const prediction = await model.predict(image, false);
+
+                for (let i = 0; i < maxPredictions; i++) {
+                    const classPrediction =
+                        prediction[i].className + ': ' + prediction[i].probability.toFixed(2);
+                    labelContainer.childNodes[i].innerHTML = classPrediction;
+                }
+            }
+        </script>
+    </body>
+</html>

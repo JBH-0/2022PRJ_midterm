@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <style>
+        .my-div {
+                font-size: xx-large; 
+                font-weight: bolder; 
+                height: 80px; 
+                display: flex; 
+                justify-content: center; 
+                align-items: center; 
+                position: relative;
+            }
+        .normal-div {
+                font-size: x-large;
+                font-weight: lighter;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            
+            .container {
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                position: relative;
+                z-index: 1;
+                font-size: x-large;
+            }
+
+            .container::after { 
+                width: 100%; 
+                height: 100%; 
+                content: ""; 
+                background-color: #2bff00;
+                position: absolute; 
+                top: 0; 
+                left: 0; 
+                z-index: -1; 
+                opacity: 0.4; 
+            }
+    </style>
+    </head>
+    
+    <body bgcolor="#eeeeee">
+        <div class="container"><h1 class="my-div">정상 피부입니다!!</h1></div>
+        <div style="text-align: center;">
+            <img src="https://img.freepik.com/free-photo/cute-dog-outdoors_23-2149004543.jpg?t=st=1650729083~exp=1650729683~hmac=650fb08f17a435b5ff62cf8f85d4cdfa31af177aa52c0119cef230c19aa3d194&w=1060" alt="건강한 강아지" width="800px" height="500px">
+        </div>
+        </table>
+        <h2 class="my-div">
+            정상 피부입니다!!
+        </h2>
+        <h3 class="normal-div">
+            앞으로도 강아지 피부가 건강할 수 있도록 유지하세요!
+        </h3>
+        <input type="button" style="width: 80pt; height: 40pt; font-size: large" value="Back" onclick="history.back()">
+    </body>
+</html>

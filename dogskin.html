@@ -136,7 +136,7 @@
             }
 
             .remove-image {
-                width: 400px;
+                width: 300px;
                 margin: 0;
                 color: #fff;
                 background: #cd4535;
@@ -172,13 +172,15 @@
             }
         </script>
     </head>
-    <body>
-        <div class="container"><h1 class="my-div">강아지 피부 진단하기</h1></div><h2 class="normal-div">정상이면 normal<br>알레르기 피부염이면 allergy<br>세균, 진균성 피부염이면 bacteria<br>기생충 피부염이면 paracite로 결과가 나옵니다.</h2>
-        <button type="button" style="width: 80pt; height: 40pt; font-size: large" onclick="init()">시작하기</button>
-        <button type="button" style="width: 80pt; height: 40pt; font-size: large" onclick="predict()">예측하기</button>
+    <body onload="init()">
+        <div class="container"><h1 class="my-div">강아지 피부 진단하기</h1></div>
+        <h2 class="normal-div">정상이면 normal<br>알레르기 피부염이면 allergy<br>세균, 진균성 피부염이면 bacteria<br>기생충 피부염이면 parasite로 결과가 나옵니다.</h2>
+        <button type="button" style="width: 80pt; height: 40pt; font-size: large" onclick="predict()">진단하기</button>
         <script
             class="jsbin"
             src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+
+            
         ></script>
         <div class="file-upload">
             <button
@@ -205,13 +207,14 @@
                 <img class="file-upload-image" id="imageUpload" src="#" alt="your image" />
                 <div class="image-title-wrap">
                     <button type="button" onclick="removeUpload()" class="remove-image">
-                        Remove <span class="image-title">Uploaded Image</span>
+                        "이미지 제거하기" <span class="image-title">Uploaded Image</span>
                     </button>
                 </div>
             </div>
         </div>
         <div id="webcam-container"></div>
         <div id="label-container"></div>
+        <div>Result: <span id="action"></span></div>
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 
@@ -251,7 +254,9 @@
         <script type="text/javascript">
             const URL = './my_model/';
 
-            let model, webcam, labelContainer, maxPredictions;
+            let model, webcam, labelContainer, maxPredictions, actionSpan;
+
+            init();
 
             async function init() {
                 const modelURL = URL + 'model.json';
@@ -265,19 +270,54 @@
                     // and class labels
                     labelContainer.appendChild(document.createElement('div'));
                 }
+
+                actionSpan = document.getElementById('action')
             
             }
-
+/*
+            function back()
+            {
+                history.go(-1);
+            }
+*/
             async function predict() {
                 var image = document.getElementById('imageUpload');
                 const prediction = await model.predict(image, false);
+
+                let bestPrediction = 0;
+                let bestPredictionIdx = 0;
+
 
                 for (let i = 0; i < maxPredictions; i++) {
                     const classPrediction =
                         prediction[i].className + ': ' + prediction[i].probability.toFixed(2);
                     labelContainer.childNodes[i].innerHTML = classPrediction;
+
+                    if (prediction[i].probability > bestPrediction) {
+                        bestPrediction = prediction[i].probability
+                        bestPredictionIdx = i
+                    }
                 }
+                    actionSpan.innerText = prediction[bestPredictionIdx].className
+
+                    if(prediction[bestPredictionIdx].className == 'allergy')
+                    {
+                        location.href="allergy.html";
+                    }
+                    else if(prediction[bestPredictionIdx].className == 'bacteria')
+                    {
+                        location.href="bacteria.html";
+                    }
+                    else if(prediction[bestPredictionIdx].className == 'parasite')
+                    {
+                        location.href="parasite.html";
+                    }
+                    else if(prediction[bestPredictionIdx].className == 'normal')
+                    {
+                        location.href="normal.html";
+                    }
             }
+
         </script>
     </body>
 </html>

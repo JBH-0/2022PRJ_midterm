@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <style>
+        .normal-div {
+                font-size: x-large;
+                font-weight: lighter;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            
+            .container {
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                position: relative;
+                z-index: 1;
+                font-size: x-large;
+            }
+
+            .container::after { 
+                width: 100%; 
+                height: 100%; 
+                content: ""; 
+                background-color: #ff0000;
+                position: absolute; 
+                top: 0; 
+                left: 0; 
+                z-index: -1; 
+                opacity: 0.4; 
+            }
+    </style>
+    </head>
+    
+    <body bgcolor="#eeeeee">
+        <div class="container"><h1 class="my-div">세균 및 진균성 피부염입니다.</h1></div>
+        <table>
+            <tr>
+                <td>
+                  <img alt="강아지 세균 및 진균성 피부" src="1.jpg" width="300px" height="300px"/>
+                </td>
+                <td>
+                    <img alt="강아지 세균 및 진균성 피부" src="51.jpg" width="300px" height="300px"/>
+                </td>
+                <td>
+                    <img alt="강아지 세균 및 진균성 피부" src="70.jpg" width="300px" height="300px"/>
+                </td>
+            <tr>
+        </table>
+        <h2 class="normal-div">-원인: 약해진 면역력, 상처로 인한 세균의 침입으로 인한 농피증, 감염된 개와의 접촉
+            <br>-증상: 몹시 가려워 깨물고 할퀴면서 탈모와 고열 등의 증상, 털이 가늘어지거나 끊어져 원형 탈모 증상
+            <br>*완전한 퇴치까지 시간이 걸림
+        </h2>
+        <h3 class="normal-div">√세균이 피부에 깊숙히 침투한 경우 항생연고나 먹는 약으로 치료/ 가벼운 경우에는 약용 샴푸로 치료
+            <br>√평소 산책 후 브러싱을 하고 털과 피부를 청결하게 관리하여 예방
+        </h3>
+        <input type="button" style="width: 80pt; height: 40pt; font-size: large" value="Back" onclick="history.back()">
+    </body>
+</html>

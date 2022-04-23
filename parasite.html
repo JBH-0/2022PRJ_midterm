@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <style>
+        .normal-div {
+                font-size: x-large;
+                font-weight: lighter;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            
+            .container {
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                position: relative;
+                z-index: 1;
+                font-size: x-large;
+            }
+
+            .container::after { 
+                width: 100%; 
+                height: 100%; 
+                content: ""; 
+                background-color: #ff0000;
+                position: absolute; 
+                top: 0; 
+                left: 0; 
+                z-index: -1; 
+                opacity: 0.4; 
+            }
+    </style>
+    </head>
+    
+    <body bgcolor="#eeeeee">
+        <div class="container"><h1 class="my-div">기생충 피부염입니다.</h1></div>
+        <table>
+            <tr>
+                <td>
+                  <img alt="강아지 기생충 피부" src="6.jpg" width="300px" height="300px"/>
+                </td>
+                <td>
+                    <img alt="강아지 기생충 피부" src="61.jpg" width="300px" height="300px"/>
+                </td>
+                <td>
+                    <img alt="강아지 기생충 피부" src="63.jpg" width="300px" height="300px"/>
+                </td>
+            <tr>
+        </table>
+        <h2 class="normal-div">-원인: 벼룩의 타액으로 인한 알레르기 반응, 진드기에 감염된 다른 개로부터 전염
+            <br>-증상: 등이나 배 또는 발목 부위의 탈모, 극심한 가려움증, 빈혈 증상
+            <br>*완전한 퇴치까지 시간이 걸림
+        </h2>
+        <h3 class="normal-div">√적합한 외부기생충 치료제와 함께 내복약을 병행하여 치료
+            <br>√사람에게도 전염이 되는 병이므로, 반려견과 보호자 모두 피부과 검사 받기
+        </h3>
+        <input type="button" style="width: 80pt; height: 40pt; font-size: large" value="Back" onclick="history.back()">
+    </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <style>
+        .normal-div {
+                font-size: x-large;
+                font-weight: lighter;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            
+            .container {
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                position: relative;
+                z-index: 1;
+                font-size: x-large;
+            }
+
+            .container::after { 
+                width: 100%; 
+                height: 100%; 
+                content: ""; 
+                background-color: #FF4500;
+                position: absolute; 
+                top: 0; 
+                left: 0; 
+                z-index: -1; 
+                opacity: 0.4; 
+            }
+    </style>
+    </head>
+    
+    <body bgcolor="#eeeeee">
+        <div class="container"><h1 class="my-div">알레르기 피부염입니다.</h1></div>
+        <table>
+            <tr>
+                <td>
+                  <img alt="강아지 알레르기 피부" src="35.jpg" width="300px" height="300px"/>
+                </td>
+                <td>
+                    <img alt="강아지 알레르기 피부" src="39.jpg" width="300px" height="300px"/>
+                </td>
+                <td>
+                    <img alt="강아지 알레르기 피부" src="115.jpg" width="300px" height="300px"/>
+                </td>
+            <tr>
+        </table>
+        <h2 class="normal-div">-원인: 곰팡이, 꽃가루, 먼지, 다른 동물의 대변 등의 알레르겐, 알레르기를 유발하는 음식
+            <br>-증상: 피부에 붉은 돌기, 외이염 동반, 심각한 가려움
+        </h2>
+        <h3 class="normal-div">√알레르기의 원인이 되는 음식물의 변화, 환경의 변화 등을 유추하여 원인물질을 일상속에서 제거하기
+            <br>√알레르기를 억제하는 연고나 가려움증과 염증을 진정시키는 주사처방으로 치료하기
+        </h3>
+        <input type="button" style="width: 80pt; height: 40pt; font-size: large" value="Back" onclick="history.back()">
+    </body>
+</html>
